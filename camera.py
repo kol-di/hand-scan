@@ -1,9 +1,13 @@
 import cv2
 import time
 
+from hands import HandDetect
+
 
 def display():
     cap = cv2.VideoCapture(0)
+
+    hand_detect = HandDetect()
 
     start_time = 0
     while True:
@@ -15,6 +19,7 @@ def display():
         start_time = end_time
 
         # display frame
+        hand_detect.show_hands(frame)
         cv2.putText(frame, f'FPS:{int(fps)}', (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cv2.imshow('video feed', frame)
 
