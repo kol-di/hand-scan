@@ -4,8 +4,16 @@ import time
 from detector.hands import HandDetect
 
 
+def capture_video(source):
+   cap = cv2.VideoCapture(source) 
+   if cap is None or not cap.isOpened():
+       raise Exception('Warning: unable to open video source: ', source)
+   else:
+       return cap
+
+
 def display():
-    cap = cv2.VideoCapture(0)
+    cap = capture_video(0)
 
     hand_detect = HandDetect()
 
