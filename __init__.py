@@ -12,11 +12,12 @@ bl_info = {
 
 import bpy
 
-from .addon.operators import HS_OT_CreateLeftHandMesh
+from .addon.operators import HS_OT_CreateLeftHandMesh, HS_OT_CaptureHands
 from .addon.panel import HS_PT_Panel
 
 classes = (
     HS_OT_CreateLeftHandMesh, 
+    HS_OT_CaptureHands,
     HS_PT_Panel,
 )
 

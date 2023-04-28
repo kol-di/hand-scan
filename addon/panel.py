@@ -11,8 +11,11 @@ class HS_PT_Panel(bpy.types.Panel):
         layout = self.layout 
 
         layout.label(text="Generate hand armature")
-        split = layout.split()
-        col_l = split.column()
-        col_l.label(text="L")
+        split_armature_gen = layout.split(align=True)
+        col_l = split_armature_gen.column()
         col_l.operator("action.create_left_hand_mesh")
-        
+        col_r = split_armature_gen.column()
+        col_r.operator("action.create_left_hand_mesh")
+
+        row_capture_hands = layout.row()
+        row_capture_hands.operator("action.capture_hands")
