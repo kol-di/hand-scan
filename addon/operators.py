@@ -1,6 +1,7 @@
 import bpy
 
 from .armature import left_hand_armature
+from ui.camera import display
 
 
 def output(context):
@@ -10,7 +11,7 @@ def output(context):
 
 class HS_OT_CreateLeftHandMesh(bpy.types.Operator):
     bl_idname = "action.create_left_hand_mesh"
-    bl_label = "Hand Scan"
+    bl_label = "L"
     bl_options = {"REGISTER", "UNDO"}
 
     # @classmethod
@@ -23,3 +24,13 @@ class HS_OT_CreateLeftHandMesh(bpy.types.Operator):
         left_hand_armature(context)
         output(context)
         return {'FINISHED'}
+    
+
+class HS_OT_CaptureHands(bpy.types.Operator):
+    bl_idname = "action.capture_hands"
+    bl_label = "Capture Hands"
+    
+    def execute(self, context):
+        display()
+        return {'FINISHED'}
+    

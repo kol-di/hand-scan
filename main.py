@@ -1,4 +1,4 @@
-from camera import display
+from ui.camera import display
 
 
 def main():
