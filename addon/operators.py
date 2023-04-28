@@ -1,6 +1,6 @@
 import bpy
 
-from .armature import left_hand_armature
+from .armature import create_hand_armature, create_bones_data
 from ui.camera import display
 
 
@@ -21,7 +21,8 @@ class HS_OT_CreateLeftHandMesh(bpy.types.Operator):
 
     def execute(self, context):
         # bpy.ops.mesh.primitive_cube_add()
-        left_hand_armature(context)
+        bones_data = create_bones_data('L')
+        create_hand_armature(context, bones_data)
         output(context)
         return {'FINISHED'}
     

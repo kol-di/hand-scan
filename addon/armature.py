@@ -49,7 +49,8 @@ def create_bones_data(orient: str):
     return bones
 
 
-def left_hand_armature(context: bpy.types.Context):
+def create_hand_armature(context: bpy.types.Context, bones_data: list[Bone]):
+    assert context.mode == 'OBJECT', "Incorrect context mode for armature creation {}".format(context.mode)
 
     # get new armature
     bpy.ops.object.armature_add(
@@ -59,9 +60,6 @@ def left_hand_armature(context: bpy.types.Context):
     armature = bpy.data.armatures[-1]
     if not armature.is_editmode:
         bpy.ops.object.mode_set(mode='EDIT')
-
-    # init bone positions
-    bones_data = create_bones_data(orient='L')
 
     # create edit_bones in armature
     for bone_data in bones_data:
