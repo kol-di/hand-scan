@@ -13,9 +13,8 @@ from typing import Optional
 @dataclass
 class Bone:
     name: str
-    location: Vector
-    rotation: Quaternion
-    length: float
+    head: Vector
+    tail: Vector
     parent: Optional[Bone] = None
 
 
@@ -64,9 +63,11 @@ def create_hand_armature(context: bpy.types.Context, bones_data: list[Bone]):
     # create edit_bones in armature
     for bone_data in bones_data:
         bone = armature.edit_bones.new(bone_data.name)
-        bone.translate(bone_data.location)
-        bone.length = bone_data.length
-        bone.transform(bone_data.rotation.to_matrix())
+        bone.head = bone_data.head
+        bone.tail = bone_data.tail
+
+        bone.name = bone_data.name
+
         if bone_data.parent is not None:
             bone.parent = armature.edit_bones.get(
                 bone_data.parent.name

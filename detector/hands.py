@@ -29,7 +29,7 @@ class HandDetect:
 
         for hand_lms in multi_hand_lms:
             hand_lms = hand_lms.landmark
-            for bone_pair in mp.solutions.hands.HAND_CONNECTIONS:
+            for bone_ind, bone_pair in enumerate(mp.solutions.hands.HAND_CONNECTIONS):
                 cord_tuple = [hand_lms[i] for i in bone_pair]
                 cord_tuple = tuple(map(
                     lambda lm: np.array(HandDetect.normalize_cords(frame, lm.x, lm.y, lm.z)), 
@@ -40,10 +40,7 @@ class HandDetect:
                 length = np.linalg.norm(cord_tuple[0] - cord_tuple[1])
 
                 # translate vectors to origin
-                cord_tuple_trans = tuple(map(
-                    lambda x: x - cord_tuple[0], 
-                    cord_tuple
-                ))
+                cord_tuple_trans = (np.array([0, 0, 0]), cord_tuple[1] - cord_tuple[0])
 
                 # bone rotation
                 vec_before_rot = cord_tuple_trans[0] + np.array([length, 0, 0])
@@ -58,6 +55,12 @@ class HandDetect:
                     Vector(cord_tuple[0]),
                     Quaternion(quat_direction, quat_rotation), 
                     length
+                )
+
+                bone = Bone(
+                    f'cost {bone_ind}',
+                    Vector(cord_tuple[0]), 
+                    Vector(cord_tuple[1])
                 )
                 bones.append(bone)
                 print(bone)
